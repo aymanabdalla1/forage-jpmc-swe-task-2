@@ -8,7 +8,7 @@ import './App.css';
  */
 interface IState {
   data: ServerRespond[],
-  showGraph: boolean,
+  showGraph: boolean, // Add a new state variable to control the visibility of the Graph component
 }
 
 /**
@@ -23,7 +23,7 @@ class App extends Component<{}, IState> {
       // data saves the server responds.
       // We use this state to parse data down to the child element (Graph) as element property
       data: [],
-      showGraph: false,
+      showGraph: false, // Initialize the state variable to false until button is clicked
     };
   }
 
@@ -40,16 +40,16 @@ class App extends Component<{}, IState> {
    * Get new data from server and update the state with the new data
    */
   getDataFromServer() {
-    let x = 0;
-    const interval = setInterval(() => {
-      DataStreamer.getData((serverResponds: ServerRespond[]) => {
+    let x = 0; // Initialize x to 0
+    const interval = setInterval(() => { // Set interval to run every 100ms
+      DataStreamer.getData((serverResponds: ServerRespond[]) => { // Get data from server
         this.setState({
-          data: serverResponds,
-          showGraph: true,
+          data: serverResponds, // Update the state with the new data
+          showGraph: true, // Set showGraph to true
         });
       });
       x++;
-      if (x > 1000) {
+      if (x > 1000) { // Stop the interval after 1000 iterations
         clearInterval(interval);
       }
     }, 100);
